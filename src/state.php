@@ -16,12 +16,12 @@ function state_startup_get() {
   $sessionId = json_decode($session->create(null, ['TTL' => 15 * 60])->getBody())->ID;
   $lockAcquired = json_decode($kv->put('cpkg-builder/drupal/7/lock', 'initialized', ['acquire' => $sessionId])->getBody());
 
+  $GLOBALS['consul_global_session_id'] = $sessionId;
+
   if ($lockAcquired !== true) {
     fwrite(STDERR, "Lock not acquired from consul\n");
     exit(1);
   }
-
-  $GLOBALS['consul_global_session_id'] = $sessionId;
 
   /** @var \GuzzleHttp\Psr7\Response $stateResponse */
   try {
