@@ -24,18 +24,26 @@ function state_startup_get() {
   $GLOBALS['consul_global_session_id'] = $sessionId;
 
   /** @var \GuzzleHttp\Psr7\Response $stateResponse */
-  $stateResponse = $kv->get('cpkg-builder/drupal/7/state');
-  if ($stateResponse->getStatusCode() === 404) {
-    fwrite(STDERR, "No existing state file found, making a new one.\n");
-    return [
-      'last_processed_release' => [
-        'date' => 0,
-        'filesize' => 0,
-        'mdhash' => 'invalid',
-        'version' => '0',
-      ],
-    ];
-  } else if ($stateResponse->getStatusCode() !== 200) {
+  try {
+    $stateResponse = $kv->get('cpkg-builder/drupal/7/state');
+  } catch (\SensioLabs\Consul\Exception\ClientException $e) {
+    if ($e->getCode() === 404) {
+      fwrite(STDERR, "No existing state file found, making a new one.\n");
+      return [
+        'last_processed_release' => [
+          'date' => 0,
+          'filesize' => 0,
+          'mdhash' => 'invalid',
+          'version' => '0',
+        ],
+      ];
+    } else {
+      fwrite(STDERR, "Unable to retrieve state from consul: " . $e->getMessage() . "\n");
+      exit(1);
+    }
+  }
+
+  if ($stateResponse->getStatusCode() !== 200) {
     fwrite(STDERR, "Unable to retrieve state from consul: " . $stateResponse->getReasonPhrase() . "\n");
     exit(1);
   } else {
