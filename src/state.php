@@ -25,7 +25,7 @@ function state_startup_get() {
 
   /** @var \GuzzleHttp\Psr7\Response $stateResponse */
   try {
-    $stateResponse = $kv->get('cpkg-builder/drupal/7/state');
+    $stateResponse = $kv->get('cpkg-builder/drupal/7/state', ['raw' => 1]);
   } catch (\SensioLabs\Consul\Exception\ClientException $e) {
     if ($e->getCode() === 404) {
       fwrite(STDERR, "No existing state file found, making a new one.\n");
