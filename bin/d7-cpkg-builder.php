@@ -1,6 +1,6 @@
 <?php
 
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 register_shutdown_function(function() {
   state_end_save(empty($GLOBALS['state']) ? null : $GLOBALS['state']);
@@ -22,9 +22,9 @@ function latest_release_has_changed($release) {
 
 function releaseXmlToComparableArray(\DOMElement $release) {
   return [
-    'date' => $release->getElementsByTagName('date')->item(0),
-    'filesize' => $release->getElementsByTagName('filesize')->item(0),
-    'mdhash' => $release->getElementsByTagName('mdhash')->item(0),
-    'version' => $release->getElementsByTagName('version')->item(0),
+    'date' => $release->getElementsByTagName('date')->item(0)->nodeValue,
+    'filesize' => $release->getElementsByTagName('filesize')->item(0)->nodeValue,
+    'mdhash' => $release->getElementsByTagName('mdhash')->item(0)->nodeValue,
+    'version' => $release->getElementsByTagName('version')->item(0)->nodeValue,
   ];
 }

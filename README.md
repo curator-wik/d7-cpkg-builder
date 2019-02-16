@@ -5,3 +5,5 @@ packages for consumption by the [Curator](https://github.com/curator-wik/curator
 
 Needs consul on localhost. May be run on multiple nodes within the same consul
 'datacenter' abstraction for redundancy.
+
+Run `bin/d7-cpkg-builder.php` at a reasonable frequency.
