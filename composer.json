@@ -1,0 +1,19 @@
+{
+    "name": "mbaynton/d7-cpkg-builder",
+    "description": "Monitors for new Drupal 7 releases and generates new Curator updage cpkges",
+    "type": "project",
+    "require": {
+        "sensiolabs/consul-php-sdk": "^3.1"
+    },
+    "autoload": {
+        "files": ["src/drupalorg_api.php", "src/state.php"]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Baynton",
+            "email": "mike@mbaynton.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
