@@ -9,7 +9,7 @@
         "php": "^7.0"
     },
     "autoload": {
-        "files": ["src/drupalorg_api.php", "src/state.php"]
+        "files": ["src/drupalorg_api.php", "src/state.php", "src/makeup_invoker.php"]
     },
     "license": "MIT",
     "authors": [

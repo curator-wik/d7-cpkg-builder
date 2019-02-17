@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @return \DOMNodeList
+ */
 function get_release_info() {
   $xmlstr = file_get_contents('https://updates.drupal.org/release-history/drupal/7.x');
   $xmldom = new DOMDocument();
@@ -10,7 +13,7 @@ function get_release_info() {
 
   // We only ever care about the release info, zero in on and return that.
   $xpath = new DOMXPath($xmldom);
-  $releases = $xpath->query('(//releases');
+  $releases = $xpath->query('//releases/release');
   if ($releases->length > 1) {
     return $releases;
   } else {
