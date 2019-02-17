@@ -2,16 +2,41 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+if (! is_dir('repo/.git')) {
+  fwrite(STDERR, "Need git repository to deposit build artifacts into at repo/\n");
+  fwrite(STDERR, "A remote should be configured that the user can push to noninteractively.\n");
+  exit(1);
+}
+
 register_shutdown_function(function() {
   state_end_save(empty($GLOBALS['state']) ? null : $GLOBALS['state']);
 });
 $GLOBALS['state'] = state_startup_get();
 
-$release = get_release_info();
+$releases = get_release_info();
 
-if (latest_release_has_changed($release)) {
-  echo "Detected new release yay";
-  $GLOBALS['state']['last_processed_release'] = releaseXmlToComparableArray($release);
+// We assume the 1st release in order in the xml is the most recent.
+$latest_release = $releases->item(0);
+
+if (latest_release_has_changed($latest_release)) {
+  // Detected a new release, how bout that!
+  // Clean up old release artifacts for now-obsolete version
+  $dh = opendir('repo');
+  while (($dirent = readdir($dh)) !== false) {
+    if (strncmp('.', $dirent, 1) !== 0) {
+      unlink("repo/${dirent}");
+    }
+  }
+
+  // Make new release artifacts to upgrade to current version
+  for($i = $releases->count() - 1; $i > 0; $i--) {
+    $delta_release = $releases->item($i);
+    build($delta_release, $latest_release);
+  }
+
+  wrangle_git();
+
+  $GLOBALS['state']['last_processed_release'] = releaseXmlToComparableArray($latest_release);
 }
 
 function latest_release_has_changed($release) {
@@ -27,4 +52,29 @@ function releaseXmlToComparableArray(\DOMElement $release) {
     'mdhash' => $release->getElementsByTagName('mdhash')->item(0)->nodeValue,
     'version' => $release->getElementsByTagName('version')->item(0)->nodeValue,
   ];
+}
+
+function wrangle_git() {
+  $wd = getcwd();
+  chdir('repo');
+  if (cmd('git add -A') !== 0) {
+    fwrite(STDERR, "git add -A failed\n");
+    exit(1);
+  }
+
+  if (cmd('git log') === 0) {
+    $amend = ' --amend ';
+  } else {
+    $amend = '';
+  }
+
+  if (cmd("git commit${amend} -m 'Single-commit, overwritten repo used for CI'") !== 0) {
+    fwrite(STDERR, "git commit ${amend}... failed\n");
+    exit(1);
+  }
+  if (cmd('git push --force -u origin master') !== 0) {
+    fwrite(STDERR, "git push failed\n");
+    exit(1);
+  }
+  chdir($wd);
 }

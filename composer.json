@@ -3,7 +3,10 @@
     "description": "Monitors for new Drupal 7 releases and generates new Curator updage cpkges",
     "type": "project",
     "require": {
-        "sensiolabs/consul-php-sdk": "^3.1"
+        "sensiolabs/consul-php-sdk": "^3.1",
+        "perchten/rmrdir": "^1.0",
+        "curator/makeup": "dev-master",
+        "php": "^7.0"
     },
     "autoload": {
         "files": ["src/drupalorg_api.php", "src/state.php"]
@@ -15,5 +18,15 @@
             "email": "mike@mbaynton.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/curator-wik/makeup"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/curator-wik/diff-match-patch"
+        }
+    ]
 }
