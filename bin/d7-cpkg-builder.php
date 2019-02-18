@@ -34,6 +34,7 @@ if (latest_release_has_changed($latest_release)) {
     if ($delta_release->getElementsByTagName('security')->length
       && $delta_release->getElementsByTagName('security')->item(0)->getAttribute('covered')) {
       build($delta_release, $latest_release);
+      state_refresh_lock();
     }
   }
 

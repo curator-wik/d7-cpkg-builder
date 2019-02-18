@@ -4,7 +4,7 @@
     "type": "project",
     "require": {
         "sensiolabs/consul-php-sdk": "^3.1",
-        "perchten/rmrdir": "^1.0",
+        "perchten/rmrdir": "dev-master",
         "curator/makeup": "dev-master",
         "php": "^7.0"
     },
@@ -26,7 +26,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/curator-wik/diff-match-patch"
+            "url": "https://github.com/mbaynton/php-rmrdir.git"
         }
     ]
 }

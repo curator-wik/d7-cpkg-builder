@@ -65,7 +65,7 @@ function download_release(DOMElement $release, $target) {
   if (! is_dir($target)) mkdir($target);
   $wd = getcwd();
   chdir($target);
-  if (!cmd("tar --strip-components=1 -zxf ../../${target}.tar.gz")) {
+  if (cmd("tar --strip-components=1 -zxf ../../${target}.tar.gz") !== 0) {
     fwrite(STDERR, "Failed extracting to ${target}\n");
     exit(1);
   }
@@ -73,7 +73,7 @@ function download_release(DOMElement $release, $target) {
 }
 
 function invoke_makeup(string $build_dir) {
-  if(cmd('php ' . __DIR__ . "/../vendor/bin/makeup.php $build_dir") !== 0) {
+  if(cmd('php ' . __DIR__ . "/../vendor/bin/makeup.php -d $build_dir") !== 0) {
     return false;
   }
   return true;

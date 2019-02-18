@@ -51,6 +51,10 @@ function state_startup_get() {
   }
 }
 
+function state_refresh_lock() {
+  fwrite(STDERR, "TODO: refresh consul lock\n");
+}
+
 /**
  * Save the state back to consul and release lock.
  *
