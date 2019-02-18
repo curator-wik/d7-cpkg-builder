@@ -31,7 +31,7 @@ function setup_build_dir(DOMElement $delta_version, DOMElement $latest_version) 
 
   $latest_identifier = $latest_version->getElementsByTagName('version')->item(0)->nodeValue;
   $delta_identifier = $delta_version->getElementsByTagName('version')->item(0)->nodeValue;
-  file_put_contents('version',"${$latest_identifier}\n");
+  file_put_contents('version',"${latest_identifier}\n");
   file_put_contents('prev-versions-inorder', "${delta_identifier}\n");
   mkdir('release_trees');
 
@@ -62,10 +62,10 @@ function download_release(DOMElement $release, $target) {
     fwrite(STDERR, "Failed downloading ${download_url}\n");
     exit(1);
   }
-  mkdir($target);
+  if (! is_dir($target)) mkdir($target);
   $wd = getcwd();
   chdir($target);
-  if (!cmd("tar --strip-components=1 -zxf ../${target}.tar.tz")) {
+  if (!cmd("tar --strip-components=1 -zxf ../../${target}.tar.tz")) {
     fwrite(STDERR, "Failed extracting to ${target}\n");
     exit(1);
   }
