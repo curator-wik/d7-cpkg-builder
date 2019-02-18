@@ -65,7 +65,7 @@ function download_release(DOMElement $release, $target) {
   if (! is_dir($target)) mkdir($target);
   $wd = getcwd();
   chdir($target);
-  if (!cmd("tar --strip-components=1 -zxf ../../${target}.tar.tz")) {
+  if (!cmd("tar --strip-components=1 -zxf ../../${target}.tar.gz")) {
     fwrite(STDERR, "Failed extracting to ${target}\n");
     exit(1);
   }

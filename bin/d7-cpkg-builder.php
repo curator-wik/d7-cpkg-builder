@@ -31,8 +31,8 @@ if (latest_release_has_changed($latest_release)) {
   // Make new release artifacts to upgrade to current version
   for($i = $releases->length - 1; $i > 0; $i--) {
     $delta_release = $releases->item($i);
-    if ($delta_release->getElementsByTagName('release_extra')->length
-      && $delta_release->getElementsByTagName('release_extra')->item(0)->nodeValue != 'dev') {
+    if (! $delta_release->getElementsByTagName('release_extra')->length
+      || $delta_release->getElementsByTagName('release_extra')->item(0)->nodeValue != 'dev') {
       build($delta_release, $latest_release);
     }
   }
