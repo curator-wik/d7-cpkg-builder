@@ -51,8 +51,11 @@ function state_startup_get() {
   }
 }
 
-function state_refresh_lock() {
-  fwrite(STDERR, "TODO: refresh consul lock\n");
+function state_renew_lock() {
+  $sf = new \SensioLabs\Consul\ServiceFactory();
+  /** @var \SensioLabs\Consul\Services\SessionInterface $session */
+  $session = $sf->get(\SensioLabs\Consul\Services\SessionInterface::class);
+  $session->renew($GLOBALS['consul_global_session_id']);
 }
 
 /**
