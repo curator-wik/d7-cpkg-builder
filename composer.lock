@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1ff8a78f07eb5495a06be26f20ffcb9",
+    "content-hash": "25e434763b81aae9a7629c7e1381557c",
     "packages": [
         {
             "name": "curator/makeup",
@@ -12,16 +12,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/curator-wik/makeup.git",
-                "reference": "ff6406f7eeb072dc31542b6062547035d92f926f"
+                "reference": "b615581b9acfd8d375a415b93395f8b67092db55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/curator-wik/makeup/zipball/ff6406f7eeb072dc31542b6062547035d92f926f",
-                "reference": "ff6406f7eeb072dc31542b6062547035d92f926f",
+                "url": "https://api.github.com/repos/curator-wik/makeup/zipball/b615581b9acfd8d375a415b93395f8b67092db55",
+                "reference": "b615581b9acfd8d375a415b93395f8b67092db55",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1.0",
+                "ext-zip": "*",
+                "php": ">=7.0.0",
                 "symfony/polyfill-mbstring": "^1.3",
                 "ulrichsg/getopt-php": "^2.3",
                 "yetanotherape/diff-match-patch": "^1.0.2"
@@ -49,7 +50,7 @@
                 "source": "https://github.com/curator-wik/makeup/tree/master",
                 "issues": "https://github.com/curator-wik/makeup/issues"
             },
-            "time": "2019-02-17T17:07:49+00:00"
+            "time": "2019-02-18T04:04:43+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -236,16 +237,16 @@
         },
         {
             "name": "perchten/rmrdir",
-            "version": "1.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/perchten/php-rmrdir.git",
-                "reference": "ce8b95e509d64f339a10c3475a13ad687f1e6905"
+                "url": "https://github.com/mbaynton/php-rmrdir.git",
+                "reference": "ac559476647a2e72ae926ed27249b29db63998cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perchten/php-rmrdir/zipball/ce8b95e509d64f339a10c3475a13ad687f1e6905",
-                "reference": "ce8b95e509d64f339a10c3475a13ad687f1e6905",
+                "url": "https://api.github.com/repos/mbaynton/php-rmrdir/zipball/ac559476647a2e72ae926ed27249b29db63998cb",
+                "reference": "ac559476647a2e72ae926ed27249b29db63998cb",
                 "shasum": ""
             },
             "type": "library",
@@ -254,7 +255,6 @@
                     "src/rmrdir.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -274,7 +274,10 @@
                 "rm -r",
                 "rmdir"
             ],
-            "time": "2014-05-14T13:49:47+00:00"
+            "support": {
+                "source": "https://github.com/mbaynton/php-rmrdir/tree/master"
+            },
+            "time": "2019-02-18T14:37:52+00:00"
         },
         {
             "name": "psr/http-message",
@@ -624,6 +627,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "perchten/rmrdir": 20,
         "curator/makeup": 20
     },
     "prefer-stable": false,
