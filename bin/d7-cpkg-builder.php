@@ -29,14 +29,18 @@ if (latest_release_has_changed($latest_release)) {
   }
 
   // Make new release artifacts to upgrade to current version
+  $included_releases = [];
   for($i = $releases->length - 1; $i > 0; $i--) {
     $delta_release = $releases->item($i);
     if ($delta_release->getElementsByTagName('security')->length
       && $delta_release->getElementsByTagName('security')->item(0)->getAttribute('covered')) {
+      $included_releases[] = $delta_release;
       build($delta_release, $latest_release);
       state_renew_lock();
     }
   }
+
+  write_travis_deployment_file($included_releases);
 
   wrangle_git();
 

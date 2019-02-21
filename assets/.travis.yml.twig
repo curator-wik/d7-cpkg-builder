@@ -1,0 +1,43 @@
+language: php
+php:
+    - '5.4'
+
+env:
+    - DELTA='7.62 https://ftp.drupal.org/files/projects/drupal-7.62.tar.gz'
+    - DELTA='7.63 https://ftp.drupal.org/files/projects/drupal-7.63.tar.gz'
+
+before_install:
+    - export CURRENT_VERSION=7.64
+    - export CURRENT_VERSION_LINK='https://ftp.drupal.org/files/projects/drupal-7.64.tar.gz'
+    - read DELTA_VERSION DELTA_VERSION_LINK <<< "$DELTA"
+    - export DELTA_VERSION
+    - export DELTA_VERSION_LINK
+
+install:
+    - echo "Downloading Curator..."
+    - mkdir curator
+    - pushd curator
+    - curl https://codeload.github.com/curator-wik/curator/zip/master > curator.zip
+    - unzip curator.zip
+    - echo "Installing Curator dependencies..."
+    - composer install
+    - echo "Injecting phpunit test class..."
+    - cp ../assets/CpkgValidateTest.php tests/Integration/Cpkg/CpkgValidateTest.php
+    - popd
+    - echo "Downloading latest version of D7, ${CURRENT_VERSION}, for comparison..."
+    - mkdir current_version
+    - pushd current_version
+    - curl $CURRENT_VERSION_LINK | tar --strip-components=1 -zx
+    - popd
+    - echo "Downloading Drupal ${DELTA_VERSION}"
+    - mkdir ${DELTA_VERSION}
+    - pushd ${DELTA_VERSION}
+    - curl $DELTA_VERSION_LINK | tar --strip-components=1 -zx
+    - popd
+
+before_script:
+    - TEST_SITE_ROOT=$(pwd)/${DELTA_VERSION}
+    - export TEST_SITE_ROOT
+
+script:
+    - curator/vendor/bin/phpunit --bootstrap=curator/vendor/autoload.php curator/tests/Integration/Cpkg/CpkgValidateTest

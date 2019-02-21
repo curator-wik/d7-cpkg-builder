@@ -6,10 +6,11 @@
         "sensiolabs/consul-php-sdk": "^3.1",
         "perchten/rmrdir": "dev-master",
         "curator/makeup": "dev-master",
-        "php": "^7.0"
+        "php": "^7.0",
+        "twig/twig": "^2.6"
     },
     "autoload": {
-        "files": ["src/drupalorg_api.php", "src/state.php", "src/makeup_invoker.php"]
+        "files": ["src/drupalorg_api.php", "src/state.php", "src/makeup_invoker.php", "src/travisci.php"]
     },
     "license": "MIT",
     "authors": [
