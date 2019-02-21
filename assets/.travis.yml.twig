@@ -15,14 +15,12 @@ before_install:
 
 install:
     - echo "Downloading Curator..."
-    - mkdir curator
-    - pushd curator
     - curl https://codeload.github.com/curator-wik/curator/zip/master > curator.zip
     - unzip curator.zip
+    - mv curator-master curator
+    - pushd curator
     - echo "Installing Curator dependencies..."
     - composer install
-    - echo "Injecting phpunit test class..."
-    - cp ../assets/CpkgValidateTest.php tests/Integration/Cpkg/CpkgValidateTest.php
     - popd
     - echo "Downloading latest version of D7, ${CURRENT_VERSION}, for comparison..."
     - mkdir current_version
@@ -34,6 +32,12 @@ install:
     - pushd ${DELTA_VERSION}
     - curl $DELTA_VERSION_LINK | tar --strip-components=1 -zx
     - popd
+    - echo "Adding cpkg test class..."
+    - |
+        echo <<PHPSOURCE
+        {{ test_class_code }}
+        PHPSOURCE
+        > curator/tests/Integration/Cpkg/CpkgValidateTest.php
 
 before_script:
     - TEST_SITE_ROOT=$(pwd)/${DELTA_VERSION}
