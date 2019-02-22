@@ -6,6 +6,6 @@ function write_travis_deployment_file() {
   $template = $twig->load('.travis.yml.twig');
 
   file_put_contents('repo/.travis.yml', $template->render(
-    ['test_class_code' => file_get_contents(__DIR__ . '/CpkgValidateTest.php')]
+    ['test_class_code' => file_get_contents(__DIR__ . '/../assets/CpkgValidateTest.php')]
   ));
 }
