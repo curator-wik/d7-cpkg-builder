@@ -33,11 +33,12 @@ install:
     - curl $DELTA_VERSION_LINK | tar --strip-components=1 -zx
     - popd
     - echo "Adding cpkg test class..."
-    - |
-        echo <<PHPSOURCE
-        {{ test_class_code }}
-        PHPSOURCE
-        > curator/tests/Integration/Cpkg/CpkgValidateTest.php
+    - |2
+  (
+  cat <<PHPSOURCE
+  {{ test_class_code|raw }}
+  PHPSOURCE
+  ) > curator/tests/Integration/Cpkg/CpkgValidateTest.php
 
 before_script:
     - TEST_SITE_ROOT=$(pwd)/${DELTA_VERSION}

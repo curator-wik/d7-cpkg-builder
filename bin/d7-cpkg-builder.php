@@ -8,6 +8,12 @@ if (! is_dir('repo/.git')) {
   exit(1);
 }
 
+$opts = getopt('', ['travis-only']);
+if(array_key_exists('travis-only', $opts)) {
+  write_travis_deployment_file([]); // for testing
+  exit(0);
+}
+
 register_shutdown_function(function() {
   state_end_save(empty($GLOBALS['state']) ? null : $GLOBALS['state']);
 });
