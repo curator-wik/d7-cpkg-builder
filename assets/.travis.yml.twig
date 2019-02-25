@@ -33,16 +33,11 @@ install:
     - curl $DELTA_VERSION_LINK | tar --strip-components=1 -zx
     - popd
     - echo "Adding cpkg test class..."
-    - |2
-  (
-  cat <<PHPSOURCE
-  {{ test_class_code|raw }}
-  PHPSOURCE
-  ) > curator/tests/Integration/Cpkg/CpkgValidateTest.php
+    - php -r 'echo base64_decode("{{ test_class_encoded|raw }}");' > curator/tests/Integration/Cpkg/CpkgValidateTest.php
 
 before_script:
     - TEST_SITE_ROOT=$(pwd)/${DELTA_VERSION}
     - export TEST_SITE_ROOT
 
 script:
-    - curator/vendor/bin/phpunit --bootstrap=curator/vendor/autoload.php curator/tests/Integration/Cpkg/CpkgValidateTest
+    - curator/vendor/bin/phpunit -c curator/phpunit.xml.dist curator/tests/Integration/Cpkg/CpkgValidateTest
