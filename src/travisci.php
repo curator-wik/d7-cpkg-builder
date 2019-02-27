@@ -10,4 +10,9 @@ function write_travis_deployment_file($included_releases) {
   file_put_contents('repo/.travis.yml', $template->render(
     ['test_class_encoded' => $testcode]
   ));
+
+  $copy_files = ['travis.sh', 'secret_identity_file.enc'];
+  foreach ($copy_files as $filename) {
+    copy(__DIR__ . "/../assets/${filename}", "repo/${filename}");
+  }
 }
