@@ -23,6 +23,13 @@ $releases = get_release_info();
 
 // We assume the 1st release in order in the xml is the most recent.
 $latest_release = $releases->item(0);
+if (! ($latest_release->getElementsByTagName('security')->length
+  && $latest_release->getElementsByTagName('security')->item(0)->getAttribute('covered')
+)) {
+  fwrite(STDERR, "First release in official releases xml document is not covered by the security policy! Aborting.\n");
+  $GLOBALS['state']['last_processed_release'] = releaseXmlToComparableArray($latest_release);
+  exit(1);
+}
 
 if (latest_release_has_changed($latest_release)) {
   // Detected a new release, how bout that!
@@ -46,7 +53,7 @@ if (latest_release_has_changed($latest_release)) {
     }
   }
 
-  write_travis_deployment_file($included_releases);
+  write_travis_deployment_file($included_releases, $latest_release);
 
   wrangle_git();
 
