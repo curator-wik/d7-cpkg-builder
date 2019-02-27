@@ -16,6 +16,7 @@ before_install:
     - export DELTA_VERSION
     - export DELTA_VERSION_LINK
     - openssl aes-256-cbc -K $encrypted_32cfd0901b02_key -iv $encrypted_32cfd0901b02_iv -in secret_identity_file.enc -out secret_identity_file -d
+    - chmod 0400 secret_identity_file
 
 install:
     - echo "Downloading Curator..."
