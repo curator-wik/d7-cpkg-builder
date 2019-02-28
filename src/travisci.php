@@ -16,6 +16,9 @@ function write_travis_deployment_file($included_releases, $latest_release) {
     $ra['url'] = $release->getElementsByTagName('download_link')->item(0)->nodeValue;
     $delta_releases_array[] = $ra;
   }
+  // Travis CI builds in the order of the env matrix; get newer updates out 1st.
+  $delta_releases_array = array_reverse($delta_releases_array);
+
   file_put_contents('repo/.travis.yml', $template->render(
     [
       'current_version' => $latest_release_array['version'],
