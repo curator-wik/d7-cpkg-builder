@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/curator-wik/makeup.git",
-                "reference": "b615581b9acfd8d375a415b93395f8b67092db55"
+                "reference": "49ac46111245606dc7894d125d6f4024dd574d02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/curator-wik/makeup/zipball/b615581b9acfd8d375a415b93395f8b67092db55",
-                "reference": "b615581b9acfd8d375a415b93395f8b67092db55",
+                "url": "https://api.github.com/repos/curator-wik/makeup/zipball/49ac46111245606dc7894d125d6f4024dd574d02",
+                "reference": "49ac46111245606dc7894d125d6f4024dd574d02",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
                 "source": "https://github.com/curator-wik/makeup/tree/master",
                 "issues": "https://github.com/curator-wik/makeup/issues"
             },
-            "time": "2019-02-18T04:04:43+00:00"
+            "time": "2019-02-28T14:35:47+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -583,16 +583,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.6.2",
+            "version": "v2.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "7d7342c8a4059fefb9b8d07db0cc14007021f9b7"
+                "reference": "70c59531da43afe598c66135e39cac39475a2f51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7d7342c8a4059fefb9b8d07db0cc14007021f9b7",
-                "reference": "7d7342c8a4059fefb9b8d07db0cc14007021f9b7",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/70c59531da43afe598c66135e39cac39475a2f51",
+                "reference": "70c59531da43afe598c66135e39cac39475a2f51",
                 "shasum": ""
             },
             "require": {
@@ -608,7 +608,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
@@ -646,7 +646,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-01-14T15:00:48+00:00"
+            "time": "2019-03-12T18:48:26+00:00"
         },
         {
             "name": "ulrichsg/getopt-php",
